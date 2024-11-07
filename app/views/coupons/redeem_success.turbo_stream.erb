@@ -1,0 +1,7 @@
+<!-- app/views/coupons/redeem_success.turbo_stream.erb -->
+
+<turbo-stream action="replace" target="coupon_result">
+  <template>
+    <%= render partial: "coupons/redeem_success", locals: { message: "Coupon applied", cart: cart } %>
+  </template>
+</turbo-stream>

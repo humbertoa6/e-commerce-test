@@ -1,0 +1,8 @@
+<!-- app/views/coupons/redeem_error.turbo_stream.erb -->
+
+
+<turbo-stream action="replace" target="coupon_form">
+  <template>
+    <%= render partial: "coupons/redeem_form", locals: { cart: cart, error: error }, formats: [:html] %>
+  </template>
+</turbo-stream>

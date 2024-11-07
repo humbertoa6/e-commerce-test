@@ -1,0 +1,37 @@
+<!-- app/views/user_coupons/update.turbo_stream.erb -->
+<turbo-stream action="replace" target="<%= dom_id(@user_coupon) %>">
+  <template>
+    <tr id="<%= dom_id(@user_coupon) %>">
+      <td class="py-2 px-4 border-b"><%= @user_coupon.coupon.code %></td>
+      <td class="py-2 px-4 border-b"><%= @user_coupon.coupon.discount_percentage %> %</td>
+      <td class="py-2 px-4 border-b"><%= @user_coupon.user.name %></td>
+      <td class="py-2 px-4 border-b"><%= @user_coupon.status&.capitalize %></td>
+      <% if @user_coupon.status == "redeemed" && @user_coupon.cart.present? %>
+        <td class="py-2 px-4 border-b"><%= number_to_currency(@user_coupon.cart.original_total) %></td>
+        <td class="py-2 px-4 border-b"><%= number_to_currency(@user_coupon.cart.original_total * @user_coupon.coupon.discount_percentage / 100) %></td>
+      <% else %>
+        <td class="py-2 px-4 border-b text-gray-400">-</td>
+        <td class="py-2 px-4 border-b text-gray-400">-</td>
+      <% end %>
+      <td class="py-2 px-4 border-b"><%= @user_coupon.cart&.completed_at&.strftime('%F - %T') || '-' %></td>
+      <td class="py-2 px-4 border-b">
+        <%= link_to 'Edit', edit_user_coupon_path(@user_coupon), data: { turbo_frame: "coupon_form" }, class: "text-blue-500 hover:underline" %> |
+        <%= button_to 'Delete', user_coupon_path(@user_coupon), method: :delete, data: { confirm: '¿Are you sure?' }, class: "text-red-500 hover:underline" %>
+      </td>
+    </tr>
+  </template>
+</turbo-stream>
+
+<turbo-stream action="update" target="coupon_form">
+  <template></template>
+</turbo-stream>
+
+<turbo-stream action="update" target="flash">
+  <template>
+    <div data-controller="autohide">
+      <% flash.each do |key, value| %>
+        <%= content_tag :div, value, id: key, class: "flash-message" %>
+      <% end %>
+    </div>
+  </template>
+</turbo-stream>

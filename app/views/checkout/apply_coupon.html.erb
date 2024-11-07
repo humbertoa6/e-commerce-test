@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "coupon" do %>
+  <form data-controller="coupon" data-action="submit->coupon#apply">
+    <input type="text" name="coupon_code" placeholder="Enter coupon code" required>
+    <button type="submit">Apply Coupon</button>
+  </form>
+<% end %>

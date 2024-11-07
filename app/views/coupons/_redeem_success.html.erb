@@ -1,0 +1,10 @@
+<!-- app/views/coupons/_redeem_success.html.erb -->
+<div class="mt-8 p-4 bg-green-100 border-l-4 border-green-500 text-green-700">
+  <p class="text-lg font-semibold"><%= message %></p>
+</div>
+
+<div id="cart_totals">
+  <p class="text-lg mt-4">Original Price:<%= number_to_currency(cart.original_total) %></p>
+  <p class="text-lg">Discount (<%= cart.discount_percentage %>%): -<%= number_to_currency(cart.discount_amount) %></p>
+  <p class="text-xl font-semibold mt-2">Final Price:<%= number_to_currency(cart.final_total) %></p>
+</div>

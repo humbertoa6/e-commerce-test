@@ -1,0 +1,45 @@
+<!-- app/views/cart/confirmation.html.erb -->
+<div class="container mx-auto p-8">
+  <h1 class="text-3xl font-bold mb-6">Purchase Completed</h1>
+
+  <!-- Order Number -->
+  <p class="text-lg mb-4">Order Number: <%= @cart.id %></p>
+
+  <!-- Purchase Details -->
+  <table class="min-w-full bg-white shadow-md rounded-lg">
+    <thead>
+      <tr>
+        <th class="py-2 px-4 border-b">Product</th>
+        <th class="py-2 px-4 border-b">Quantity</th>
+        <th class="py-2 px-4 border-b">Unit Price</th>
+        <th class="py-2 px-4 border-b">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart.items.each do |item| %>
+        <tr>
+          <td class="py-2 px-4 border-b"><%= item['product_name'] %></td>
+          <td class="py-2 px-4 border-b"><%= number_to_currency(item['quantity']) %></td>
+          <td class="py-2 px-4 border-b"><%= number_to_currency(item['price']) %></td>
+          <td class="py-2 px-4 border-b"><%= number_to_currency(item['quantity'] * item['price']) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p class="text-lg mt-4">Original Price: <%= number_to_currency(@cart.original_total) %></p>
+  <% if @cart.discount_percentage.present? %>
+    <p class="text-lg">Discount (<%= @cart.discount_percentage %>%): -<%= number_to_currency(@cart.discount_amount) %></p>
+    <p class="text-xl font-semibold mt-2">Final Price: <%= number_to_currency(@cart.final_total) %></p>
+  <% else %>
+    <p class="text-xl font-semibold mt-2">Total: <%= number_to_currency(@cart.original_total) %></p>
+  <% end %>
+
+  <!-- Gift Card -->
+  <div class="mt-8 p-4 bg-green-100 border-l-4 border-green-500 text-green-700">
+    <p class="text-lg font-semibold">Thank you for your purchase!</p>
+    <p>As a token of our appreciation, we have granted you a gift card with the following code:</p>
+    <p class="text-xl font-bold mt-2"><%= @gift_card.code %></p>
+    <p class="text-sm mt-1">(You can use it for a <%= @gift_card.discount_percentage %>% discount on your next purchase)</p>
+  </div>
+</div>

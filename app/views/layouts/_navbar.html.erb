@@ -1,0 +1,23 @@
+<!-- app/views/layouts/_navbar.html.erb -->
+<nav class="bg-blue-600">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <a href="/" class="text-white font-bold text-xl">E-Commerce</a>
+      </div>
+      <div class="hidden md:block">
+        <div class="ml-10 flex items-baseline space-x-4">
+          <%= link_to 'Coupons', coupons_path, class: "text-white hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
+          <%= link_to 'Cart', cart_path, class: "text-white hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" %>
+        </div>
+      </div>
+      <div class="hidden md:block">
+        <% if current_user %>
+          <span class="text-white px-3 py-2 rounded-md text-sm font-medium">Welcome, <%= current_user.name %></span>
+        <% else %>
+          <span class="text-white px-3 py-2 rounded-md text-sm font-medium">Guest</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>
